@@ -1,13 +1,13 @@
 {
   "main.css": "/word-counter/static/css/main.5b28b360.chunk.css",
-  "main.js": "/word-counter/static/js/main.c139deca.chunk.js",
-  "main.js.map": "/word-counter/static/js/main.c139deca.chunk.js.map",
+  "main.js": "/word-counter/static/js/main.9ac7282a.chunk.js",
+  "main.js.map": "/word-counter/static/js/main.9ac7282a.chunk.js.map",
   "static/js/1.f715b2e0.chunk.js": "/word-counter/static/js/1.f715b2e0.chunk.js",
   "static/js/1.f715b2e0.chunk.js.map": "/word-counter/static/js/1.f715b2e0.chunk.js.map",
   "runtime~main.js": "/word-counter/static/js/runtime~main.e14e0196.js",
   "runtime~main.js.map": "/word-counter/static/js/runtime~main.e14e0196.js.map",
   "static/css/main.5b28b360.chunk.css.map": "/word-counter/static/css/main.5b28b360.chunk.css.map",
   "index.html": "/word-counter/index.html",
-  "precache-manifest.d2d74f58801f93d7e21221e56f2e02ee.js": "/word-counter/precache-manifest.d2d74f58801f93d7e21221e56f2e02ee.js",
+  "precache-manifest.d50ccb481ac406bdcd9ce4a6321df4ab.js": "/word-counter/precache-manifest.d50ccb481ac406bdcd9ce4a6321df4ab.js",
   "service-worker.js": "/word-counter/service-worker.js"
 }
