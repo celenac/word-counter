@@ -8,39 +8,46 @@ class App extends Component {
       text : "",
       allWords : [],
       words : [],
-      sentences : []
+      sentences : [],
+      timeout: null
     }
     this.handleKeypress = this.handleKeypress.bind(this);
   }
   
   handleKeypress(event) {
+
     this.setState({
       text:event.target.value
     });
     
-    let words = this.state.text.match(/\b[-?(\w+)?]+\b/gi);
+    let words = event.target.value.match(/\b[-?(\w+)?]+\b/gi); // setState is async, so we don't use this.state.allWords as it may ot be the most up-to-date
     if (words) {
+
+      /* Note: I chose to setState for allWords after and reference "words" instead of "this.state.allWords", because setState is async. 
+        That means that even if we call setState before the following lines of code, the state may not actually finish updating before the following lines of code run. 
+        TLDR We don't use this.state.allWords, as it may not be updated yet. 
+      */
+      let sortedWords = [];
+      for (var i = 0; i < words.length; i++) { 
+        let w = words[i].toLowerCase();
+        if (w in sortedWords) {
+          sortedWords[w] += 1;
+        } else {
+          sortedWords[w] = 1;
+        }
+      }
+
       this.setState({
-        allWords : words
+        words: this.sortByIntProperty(sortedWords, false)
+      });
+    } else {
+      this.setState({
+        words: []
       });
     }
 
-    let sortedWords = [];
-    for (var i = 0; i < this.state.allWords.length; i++) {
-      let w = this.state.allWords[i];
-      if (w in sortedWords) {
-        sortedWords[w] += 1;
-      } else {
-        sortedWords[w] = 1;
-      }
-    }
-
-    // this.setState({
-    //   words: Object.keys(sortedWords).sort((a, b) => {return sortedWords[a] > sortedWords[b] ? -1 : 1;})
-    // })
-
     this.setState({
-      words: this.sortByIntProperty(sortedWords, false)
+      allWords : words
     });
     
     let sentences = this.state.text.split(/[.|!|?]+/g);
@@ -82,7 +89,7 @@ class App extends Component {
           <h1>Word Counter</h1>
         </header>
 
-        <textarea id="maintext" ref='mytext' onChange={(event) => this.handleKeypress(event)}>{this.state.text}</textarea>
+        <textarea id="maintext" onChange={(event) => this.handleKeypress(event)}>{this.state.text}</textarea>
         
         <div>
           <table class="center">
@@ -131,31 +138,10 @@ class App extends Component {
 
         <footer></footer>
         
-        
       </div>
     );
   }
 }
-  // render() {
-  //   return (
-  //     <div className="App">
-  //       <header className="App-header">
-  //         <img src={logo} className="App-logo" alt="logo" />
-  //         <p>
-  //           Edit <code>src/App.js</code> and save to reload.
-  //         </p>
-  //         <a
-  //           className="App-link"
-  //           href="https://reactjs.org"
-  //           target="_blank"
-  //           rel="noopener noreferrer"
-  //         >
-  //           Learn React
-  //         </a>
-  //       </header>
-  //     </div>
-  //   );
-  // }
 
 
 export default App;
