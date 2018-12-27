@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/word-counter/precache-manifest.fd0fb72e06f0eb9c333961867804666e.js"
+  "/word-counter/precache-manifest.65e7557219708e7d3a1afca110a4fa3c.js"
 );
 
 workbox.clientsClaim();
