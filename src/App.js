@@ -9,20 +9,36 @@ class App extends Component {
       allWords : [],
       words : [],
       sentences : [],
-      timeout: null
+      removedWords: new Set(["the", "a"])
     }
     this.handleKeypress = this.handleKeypress.bind(this);
   }
   
+  removeWords(event) {
+    let rmWrds = event.target.value.split("\n");
+    rmWrds = rmWrds.map(s => s.trim());
+    rmWrds = new Set(rmWrds);
+    console.log("rmWrds: ", rmWrds);
+  
+    this.setState({removedWords: rmWrds});
+    // this.setState({removedWords: rmWrds}, () => {
+    //   console.log("set removed words state");
+    //   this.handleKeypress();
+    // });
+    
+  }
+
   handleKeypress(event) {
 
     this.setState({
       text:event.target.value
-    });
+    });    
+
+    console.log("this.state.removedWords: ", this.state.removedWords);
     
     let words = event.target.value.match(/\b[-?(\w+)?]+\b/gi); // setState is async, so we don't use this.state.allWords as it may ot be the most up-to-date
     if (words) {
-
+      // console.log(this.state.removedWords);
       /* Note: I chose to setState for allWords after and reference "words" instead of "this.state.allWords", because setState is async. 
         That means that even if we call setState before the following lines of code, the state may not actually finish updating before the following lines of code run. 
         TLDR We don't use this.state.allWords, as it may not be updated yet. 
@@ -30,6 +46,9 @@ class App extends Component {
       let sortedWords = [];
       for (var i = 0; i < words.length; i++) { 
         let w = words[i].toLowerCase();
+        if (this.state.removedWords.has(w)) {
+          continue;
+        }
         if (w in sortedWords) {
           sortedWords[w] += 1;
         } else {
@@ -56,6 +75,7 @@ class App extends Component {
     });
     
   }
+
 
   sortByIntProperty(obj, increasing = true) {
     /**
@@ -86,55 +106,47 @@ class App extends Component {
     return(
       <div id="app">
         <header class="App-header">
-          <h1>Word Counter</h1>
+          {/* <h1>Word Counter</h1> */}
         </header>
 
-        <textarea id="maintext" onChange={(event) => this.handleKeypress(event)}>{this.state.text}</textarea>
-        
-        <div>
-          <table class="center">
-            <tbody>
-              
-              <tr>
-                <td class="left">
-                  Characters: 
-                </td>
-                <td class="middle">
-                  {this.state.text.length}
-                </td>
-              </tr>
-              <tr>
-                <td class="left">
-                  Words: 
-                </td>
-                <td class="middle">
-                  {(this.state.allWords) ? this.state.allWords.length : 0}
-                </td>
-              </tr>
-              <tr>
-                <td class="left">
-                  Sentences: 
-                </td>
-                <td class="middle">
-                  {(this.state.sentences.length <= 1) ? 0 : this.state.sentences.length - 1}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div id="hiddenwords">
+          <h3>Hidden Words</h3>
+          <textarea onChange={(event) => {this.removeWords(event)}}>{Array.from(this.state.removedWords).join("\n")}</textarea>
         </div>
 
-        <p></p>
-        <div>
-          <table class="center">
-            <tbody>
-              <tr>
-                <th class="left">Word</th>
-                <th class="middle">Frequency</th>
-              </tr>
-              {this.state.words.map(w => <tr><td class="left">{w[0]}</td><td class="middle">{w[1]}</td></tr>)}
-            </tbody>
-          </table>
-        </div>
+        <div id="main-outer">
+
+          <div id="main-inner">
+            <div id="main-header">
+              <h2>Word Counter</h2>
+            </div>
+            <textarea id="maintext" onChange={(event) => this.handleKeypress(event)} placeholder="Enter text here...">{this.state.text}</textarea>
+            <div>
+              <table class="center" id="basic-results">
+                <tbody>
+                  <tr>
+                    <td> Characters:  {this.state.text.length}</td>
+                    <td>Words: {(this.state.allWords) ? this.state.allWords.length : 0}</td>
+                    <td>Sentences: {(this.state.sentences.length <= 1) ? 0 : this.state.sentences.length - 1}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+             <div id="wordfrequency">
+              <table class="center">
+                <tbody>
+                  <tr>
+                    <th class="left">Word</th>
+                    <th class="middle">Frequency</th>
+                  </tr>
+                  {this.state.words.map(w => <tr><td class="left">{w[0]}</td><td class="middle">{w[1]}</td></tr>)}
+                </tbody>
+              </table>
+            </div>
+
+          </div>    
+        </div>     
 
         <footer></footer>
         

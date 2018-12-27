@@ -3,31 +3,100 @@
 }
 
 .App-header {
-  /* background-color: #282c34; */
+  /* margin-bottom: 5em; */
   min-height: 10vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* justify-content: center; */
   /* font-size: header; */
-  /* color: white; */
 }
 
 #app {
   text-align: center;
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+#hiddenwords {
+  box-sizing: border-box;
+  height: 40vh;
+  width: 10%;
+  float: left;  
+  /* margin: 5vh; */
+  position: fixed;
+}
+
+#hiddenwords > h3 {
+  height:5%;
+  margin-top: 10vh;
+}
+
+#hiddenwords > textarea {
+  width:50%;
+  height:100%; 
+  padding: 1vw;
+  resize: none;
+  border-color: darkslategray;
+  
+  /* margin-left:5vh; */
+  /* margin-right:5vh; */
+  /* float:left; */
+}
+
+#main-outer {
+  width: 80%;
+  height: 100vh;
+  float: right;
+}
+
+#main-inner {
+  padding: 0em 3em 0em 3em;
+  height: 100%;
+}
+
+#main-header {
+  background: darkslategray;
+  color: whitesmoke;
+  border-top-left-radius: 3em;
+  border-top-right-radius: 3em;
+  padding: 0.1vh;
 }
 
 #maintext {
-  height: 40vh;
-  width: 50vw;
-  padding: 1vw;
-  margin:5vh;
+  width: 100%;
+  height: 50%;
+  padding: 2vw;
+  resize:none;
+  border-color: darkslategray;
+  display: block;
+
+  box-sizing: border-box; /* setting this makes the border of the element no longer increase its width */
+  -webkit-box-sizing: border-box; /* box sizing for safari */
+  -moz-box-sizing: border-box; /* box sizing for mozilla firefox */
+
+  -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;  
+}
+
+#wordfrequency {
+  margin-top: 10vh;
 }
 
 table.center {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+}
+
+div.results {
+  padding:1vw;
+  margin: 5vh;
+  /* height: 40vh; */
+  width: 100vw;
+  text-align: center;
+  /* position: absolute; */
 }
 
 td {
@@ -42,6 +111,16 @@ td.middle, th.middle {
   text-align: center;
 }
 
+#basic-results {
+  background-color: darkslategrey;
+  border-bottom-right-radius: 3em;
+  border-bottom-left-radius: 3em;
+  color: whitesmoke;
+  padding: 1em;
+  width: 100%;
+
+}
+
 footer {
-  min-height: 10vh;
+  min-height: 20vh;
 }
